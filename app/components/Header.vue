@@ -1,5 +1,5 @@
 <template>
-    <header class=" bg-[#0F0A1D] border-b-2 border-[#FFF0FE] flex items-center justify-between p-6">
+    <header class=" bg-[#0F0A1D] border-b-2 border-[#FFF0FE]/40 flex items-center justify-between p-6">
         <div>
             <h1 class="text-[#FFF0FE]">Webbase App</h1>
         </div>
