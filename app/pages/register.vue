@@ -1,5 +1,5 @@
 <script setup>
-import LoginCard from '../components/LoginCard.vue';
+import Register from '../components/Register.vue';
 </script>
 
 <template>
@@ -7,7 +7,7 @@ import LoginCard from '../components/LoginCard.vue';
     
     <div class="flex-grow flex flex-col justify-center items-center w-full max-w-md z-10">
       
-      <LoginCard />
+      <Register />
 
       <div class="mt-8 text-center space-y-3 font-sans">
         
