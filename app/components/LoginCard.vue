@@ -4,6 +4,7 @@ const password = ref('');
 const checkbox = ref('');
 
 
+
 </script>
 <template>
     <div class="flex flex-col bg-[#211824] text-white w-115 px-10 py-12"> 
@@ -15,7 +16,14 @@ const checkbox = ref('');
           <div class="flex flex-col gap-4"> 
           <div class="flex flex-col gap-2">
             <label> Email </label>
-            <input type="email" required v-model="email" class="bg-[#201921] border-2 border-white/20 h-10 px-2"/>
+            <div class="relative w-full">
+              <div class="absolute left-3 top-1/2 -translate-y-1/2 text-white/40">
+               <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5">
+               <path stroke-linecap="round" stroke-linejoin="round" d="M21.75 6.75v10.5a2.25 2.25 0 0 1-2.25 2.25h-15a2.25 2.25 0 0 1-2.25-2.25V6.75m19.5 0A2.25 2.25 0 0 0 19.5 4.5h-15a2.25 2.25 0 0 0-2.25 2.25m19.5 0v.243a2.25 2.25 0 0 1-1.07 1.916l-7.5 4.615a2.25 2.25 0 0 1-2.36 0l-7.5-4.615a2.25 2.25 0 0 1-1.07-1.916V6.75" />
+               </svg>
+              </div>
+              <input type="email" placeholder="Zadejte email" required v-model="email" class="w-full bg-[#201921] border-2 border-white/20 h-10 pl-10 pr-2 text-white placeholder-white/30 focus:outline-none focus:border-[#705FB4] transition-colors "/>
+            </div>
           </div>
 
            <div class="flex flex-col w-full gap-2">
@@ -23,8 +31,16 @@ const checkbox = ref('');
               <label> Heslo </label>
               <p class="text-[#705FB4] hover:text-[#8271C9] cursor-pointer"> Zapoměli jste heslo? </p>
             </div>
-             <input type="password" required v-model="password" class="bg-[#201921] border-2 border-white/20 h-10 px-2"/>
-           </div>
+              <div class="relative w-full">
+                <div class="absolute left-3 top-1/2 -translate-y-1/2 text-white/40">
+                  <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M16.5 10.5V6.75a4.5 4.5 0 1 0-9 0v3.75m-.75 11.25h10.5a2.25 2.25 0 0 0 2.25-2.25v-6.75a2.25 2.25 0 0 0-2.25-2.25H6.75a2.25 2.25 0 0 0-2.25 2.25v6.75a2.25 2.25 0 0 0 2.25 2.25Z" />
+                  </svg>
+               </div>
+               <input type="password" placeholder="Vytvořte si heslo" required v-model="password" class="w-full bg-[#201921] border-2 border-white/20 h-10 pl-10 pr-2 text-white placeholder-white/30 focus:outline-none focus:border-[#705FB4] transition-colors"/>
+              </div>
+            </div>
+          
            
            <div>
             <input type="checkbox" required v-model="checkbox"/>
