@@ -3,6 +3,34 @@ const email = ref('');
 const password = ref('');
 const checkbox = ref('');
 
+const error = ref('');
+const nacitani = ref(false);
+
+const prihlaseni = async () => {
+
+  if(!email.value || password.value) {
+    error.value = "Musíte vyplnit všechna pole."
+    return
+  }
+
+  nacitani.value = true
+
+  try{
+    const maxAge = checkbox.value ? 60 * 60 * 24 * 30 : 60 * 60 * 2
+    const takenCookie = useCookie('auth_token', {maxAge})
+    tokenCookie.value = 'fake-jwt-token-from-login'
+
+    await navigateTo('/')
+
+  }catch(error) {
+    error.value = error.data?.message || 'Nesprávné údaje.'
+  } finally {
+    nacitani.value = false
+  }
+}
+
+
+
 
 
 </script>
@@ -12,7 +40,7 @@ const checkbox = ref('');
 
         <h1 class="text-4xl font-bold text-center"> Webbase Aplikace </h1>
         <p class="text-center text-white/60"> Moderní aplikace pro náš bussines</p>
-        <form>
+        <form @submit.prevent="prihlaseni">
           <div class="flex flex-col gap-4"> 
           <div class="flex flex-col gap-2">
             <label> Email </label>
@@ -47,7 +75,11 @@ const checkbox = ref('');
             <label> Pamatovat si mě po dobu 30 dní </label>
            </div>
 
-           <button type="submit" @click="handleLogin" class="bg-[#705FB4] py-2 w-full cursor-pointer hover:bg-[#705FB4]/80"> Přihlásit se </button>
+           <button type="submit" :disabled="nacitani" class="bg-[#705FB4] py-2 w-full cursor-pointer hover:bg-[#705FB4]/80">
+             {{nacitani ? 'Přihlašuji...' : 'Přihlásit se'}}
+            </button>
+
+           <p v-if="error" class="text-red-500 text-center text-sm">  </p>
 
           </div>
         </form>

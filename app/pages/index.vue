@@ -4,6 +4,10 @@ import Header from '../components/Header.vue'
 import SecondCard from '../components/SecondCard.vue';
 import Sidebar from '../components/Sidebar.vue';
 import ThirdCard from '../components/ThirdCard.vue';
+
+definePageMeta({
+  middleware: 'auth'
+})
 </script>
 
 <template>

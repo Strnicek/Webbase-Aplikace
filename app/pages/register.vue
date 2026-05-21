@@ -1,5 +1,9 @@
 <script setup>
 import Register from '../components/Register.vue';
+
+definePageMeta({
+  middleware: 'auth'
+})
 </script>
 
 <template>

@@ -10,16 +10,35 @@ const nacitani = ref(false);
 
 const zabezpeceni = async () => {
   error.value = '';
-  if(!email.value || !username.value || password.value || passwordCheck.value) {
+  if(!email.value || !username.value || !password.value || !passwordCheck.value) {
     error.value = "Vyplňte prosím všechna pole";
     return;
   }
-  if(passwordCheck !== password) {
+  if(passwordCheck.value !== password.value) {
     error.value = "Hesla se neshodují zadejte ho prosím znovu";
+    return
   }
   if(password.value.length < 8) {
     error.value = "Vaše heslo musí být delší než 8 znaků";
+    return
   }
+
+  nacitani.value = true;
+  
+  try 
+  {
+    const takenCookie = useCookie('auth_token', {maxAge: 60 * 60 * 24 * 7})
+    takenCookie.value = 'faken-jwt-token'
+
+    await navigateTo('/')
+
+  } catch(error) {
+
+    error.value = error.data?.message || 'Registrace selhala'
+  } finally {
+    nacitani.value = false;
+  }
+  
 }
 
 
@@ -33,7 +52,7 @@ const zabezpeceni = async () => {
             <p class="text-start text-[#705FB4]/80"> Připoj se k našemu týmu Webbase </p>
         </div>
        
-        <form @sumbit.prevent="zabezpeceni">
+        <form @submit.prevent="zabezpeceni">
           <div class="flex flex-col gap-6"> 
           <div class="flex flex-col gap-2">
             <label> Email </label>
@@ -95,7 +114,11 @@ const zabezpeceni = async () => {
            </div>
            
 
-           <button type="submit" @click="handleLogin" class="bg-[#705FB4] py-2 w-full cursor-pointer hover:bg-[#705FB4]/80"> Registrovat se </button>
+           <button type="submit" :disabled="nacitani" class="bg-[#705FB4] py-2 w-full cursor-pointer hover:bg-[#705FB4]/80">
+             {{ nacitani ? 'Vytvářím účet...' : 'Registrovat se ' }}
+            </button>
+
+           <p v-if="error" class="text-red-500 text-center text-sm"> {{ error }} </p>
 
           </div>
         </form>

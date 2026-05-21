@@ -1,5 +1,10 @@
 <script setup>
 import LoginCard from '../components/LoginCard.vue';
+
+definePageMeta({
+  middleware: 'auth'
+})
+
 </script>
 
 <template>
