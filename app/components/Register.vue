@@ -27,22 +27,29 @@ const zabezpeceni = async () => {
   
   try 
   {
+    const response = await $fetch('/api/auth/register', {
+      method: 'POST',
+      body: {
+        email: email.value,
+        username: username.value,
+        password: password.value
+      }
+    })
+ 
+
     const takenCookie = useCookie('auth_token', {maxAge: 60 * 60 * 24 * 7})
-    takenCookie.value = 'faken-jwt-token'
+    takenCookie.value = response.token
 
     await navigateTo('/')
 
   } catch(error) {
 
-    error.value = error.data?.message || 'Registrace selhala'
+    error.value = error.data?.statusMessage || 'Registrace selhala'
   } finally {
     nacitani.value = false;
   }
   
 }
-
-
-
 </script>
 <template>
     <div class="flex flex-col bg-[#211824] text-white w-115 px-10 py-8 gap-4"> 

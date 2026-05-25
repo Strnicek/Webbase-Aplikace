@@ -8,30 +8,34 @@ const nacitani = ref(false);
 
 const prihlaseni = async () => {
 
-  if(!email.value || password.value) {
+  if(!email.value || !password.value) {
     error.value = "Musíte vyplnit všechna pole."
     return
   }
 
   nacitani.value = true
+  error.value = ''
 
   try{
+    const response = await $fetch('/api/auth/login', {
+      method: 'POST',
+      body: {
+        email: email.value,
+        password: password.value
+      }
+    })
     const maxAge = checkbox.value ? 60 * 60 * 24 * 30 : 60 * 60 * 2
     const takenCookie = useCookie('auth_token', {maxAge})
-    tokenCookie.value = 'fake-jwt-token-from-login'
+    tokenCookie.value = response.token
 
     await navigateTo('/')
 
   }catch(error) {
-    error.value = error.data?.message || 'Nesprávné údaje.'
+    error.value = error.data?.statusMessage || 'Nesprávné údaje.'
   } finally {
     nacitani.value = false
   }
 }
-
-
-
-
 
 </script>
 <template>
@@ -79,7 +83,7 @@ const prihlaseni = async () => {
              {{nacitani ? 'Přihlašuji...' : 'Přihlásit se'}}
             </button>
 
-           <p v-if="error" class="text-red-500 text-center text-sm">  </p>
+           <p v-if="error" class="text-red-500 text-center text-sm"> {{ error }} </p>
 
           </div>
         </form>
