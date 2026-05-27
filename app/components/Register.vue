@@ -7,6 +7,7 @@ const passwordCheck = ref('');
 
 const error = ref('');
 const nacitani = ref(false);
+const registraceUspech = ref('');
 
 const zabezpeceni = async () => {
   error.value = '';
@@ -30,23 +31,27 @@ const zabezpeceni = async () => {
     const response = await $fetch('/api/auth/register', {
       method: 'POST',
       body: {
-        email: email.value,
-        username: username.value,
+        email: email.value.trim(),
+        username: username.value.trim(),
         password: password.value
       }
     })
- 
 
-    const takenCookie = useCookie('auth_token', {maxAge: 60 * 60 * 24 * 7})
-    takenCookie.value = response.token
+    const authCookie = useAuthToken()
+    authCookie.value = response.token
 
-    await navigateTo('/')
+    registraceUspech.value = "Registrace proběhla úspěšně."
 
-  } catch(error) {
+    setTimeout( () => {
+     navigateTo('/')
+    }, 2000)
 
-    error.value = error.data?.statusMessage || 'Registrace selhala'
+  } catch (err) {
+    error.value = err.data?.statusMessage || err.statusMessage || 'Registrace selhala'
   } finally {
-    nacitani.value = false;
+    if (!registraceUspech.value) {
+      nacitani.value = false
+    }
   }
   
 }
@@ -126,6 +131,7 @@ const zabezpeceni = async () => {
             </button>
 
            <p v-if="error" class="text-red-500 text-center text-sm"> {{ error }} </p>
+           <p v-if="registraceUspech" class="text-green-600 text-center text-sm"> {{ registraceUspech }}</p>
 
           </div>
         </form>

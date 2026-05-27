@@ -1,7 +1,7 @@
 <script setup>
 const email = ref('');
 const password = ref('');
-const checkbox = ref('');
+const checkbox = ref(false);
 
 const error = ref('');
 const nacitani = ref(false);
@@ -20,18 +20,19 @@ const prihlaseni = async () => {
     const response = await $fetch('/api/auth/login', {
       method: 'POST',
       body: {
-        email: email.value,
+        email: email.value.trim(),
         password: password.value
       }
     })
-    const maxAge = checkbox.value ? 60 * 60 * 24 * 30 : 60 * 60 * 2
-    const takenCookie = useCookie('auth_token', {maxAge})
-    tokenCookie.value = response.token
+    
+    const maxAge = checkbox.value ? 60 * 60 * 24 * 30 : 60 * 60 * 24 * 7
+    const authCookie = useCookie('auth_token', { maxAge: maxAge }) // Použijeme správné useCookie
+    authCookie.value = response.token
 
     await navigateTo('/')
 
-  }catch(error) {
-    error.value = error.data?.statusMessage || 'Nesprávné údaje.'
+  } catch (err) {
+    error.value = err.data?.statusMessage || err.statusMessage || 'Nesprávné údaje.'
   } finally {
     nacitani.value = false
   }
@@ -75,7 +76,7 @@ const prihlaseni = async () => {
           
            
            <div>
-            <input type="checkbox" required v-model="checkbox"/>
+            <input type="checkbox" v-model="checkbox"/>
             <label> Pamatovat si mě po dobu 30 dní </label>
            </div>
 
@@ -96,10 +97,5 @@ const prihlaseni = async () => {
              Registrovat se
           </NuxtLink>
         </div>
-
-   
     </div>
-    
-
-    
 </template>
