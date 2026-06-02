@@ -18,7 +18,7 @@ const odhlasitSe = async () => {
 <template>
     <header class="bg-[#0F0A1D] border-b-2 border-[#FFF0FE]/40 flex items-center justify-between p-6">
         <div>
-            <h1 class="text-[#FFF0FE] font-semibold text-xl">Webbase App</h1>
+            <NuxtLink to="/" class="text-[#FFF0FE] font-semibold text-xl">Webbase App</NuxtLink>
         </div>
         
         <div class="flex gap-4 text-white items-center">
@@ -30,7 +30,7 @@ const odhlasitSe = async () => {
                 @mouseenter="isDropdownOpen = true" 
                 @mouseleave="isDropdownOpen = false"
             >
-                <Icon name="material-symbols:account-circle-full" class="cursor-pointer text-3xl"/>
+                <Icon name="material-symbols:account-circle-full" class="cursor-pointer text-[26px]"/>
 
                 <div 
                     v-if="isDropdownOpen && user"

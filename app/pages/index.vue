@@ -22,7 +22,10 @@ definePageMeta({
       <Sidebar />
 
       <div class="grid grid-cols-4 grid-rows-3 gap-6 px-8 py-6 flex-1 overflow-y-auto">
-        <FirstCard class="col-span-1 row-span-1" />
+        <FirstCard class="col-span-1 row-span-1"
+        title="Všichni Klienti"
+        number="1233"
+        />
         <FirstCard class="col-span-1 row-span-1" />
         <FirstCard class="col-span-1 row-span-1" />
         <FirstCard class="col-span-1 row-span-1" />
