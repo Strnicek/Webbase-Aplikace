@@ -1,3 +1,8 @@
+<script setup>
+
+
+</script>
+
 <template>
     <aside class="hidden md:block bg-[#231942] w-74 py-8 flex flex-col h-full border-r border-white/10">
       
@@ -19,7 +24,10 @@
           <p> Klienti </p>
         </div>
   
-        <NuxtLink to="/projekty" class="text-[#FFF0FE] flex items-center gap-4 h-14 pl-8 rounded-xl hover:bg-[#5E548E]/50 transition-colors cursor-pointer">
+        <NuxtLink  
+         to="/projekty" 
+          class="text-[#FFF0FE] bg-[#5E548E] flex items-center gap-4 h-14 pl-8 rounded-xl hover:bg-[#5E548E]/50 transition-colors cursor-pointer"
+         >
           <Icon class="text-2xl" name="material-symbols:task-outline-rounded"/>
           <p> Projekty </p>
         </NuxtLink>
